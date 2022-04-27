@@ -1,0 +1,4 @@
+PATHS:
+  RAW: input_data/raw
+  AGGREGATED: input_data/aggregated
+  ROOT: <directory_name_here>

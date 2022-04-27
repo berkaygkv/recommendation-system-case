@@ -1,0 +1,29 @@
+meta:
+  extract_upstream: False
+tasks:
+  - source: tasks/clean_data.ipynb
+    name: clean
+    product:
+      nb: products/clean_train_data.ipynb
+      data: products/cleaned_train_data.csv
+  - source: tasks/feature_generation.ipynb
+    name: feature_generation
+    upstream: ['clean']
+    product:
+      nb: products/feature_generation_nb.ipynb
+      data: products/processed_train_data.csv
+    params:
+      input_path: 'products/cleaned_train_data.csv'
+  - source: tasks/train_model.ipynb
+    name: train
+    upstream: ['feature_generation']
+    product:
+      nb: products/train_model.ipynb
+      config: products/config.pkl
+    params:
+      mlflow_tracking_uri: http://127.0.0.1:5000
+      experiment_name: 'classification'
+      train_size: 0.8
+      fix_imbalance: True
+      numeric_imputation: median
+      include_models: ['lightgbm', 'lr', "rf"]

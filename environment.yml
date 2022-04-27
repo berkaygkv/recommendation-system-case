@@ -1,0 +1,12 @@
+name:  test-case
+
+channels:
+  - conda-forge
+
+dependencies:
+  - pip
+  - pip:
+    - ploomber
+    - pandas
+    - scikit-learn
+
